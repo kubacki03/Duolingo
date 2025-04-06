@@ -1,0 +1,111 @@
+﻿@model ContentModel
+
+
+<h2 class="text-primary">Kontent do nauki</h2>
+
+@if (Model != null)
+{
+    <div class="card my-3">
+        <div class="card-header bg-info text-white">Theoretical Content</div>
+        <div class="card-body">
+            @foreach (var content in Model.ContentToLearn)
+            {
+                <h5>@content.Title</h5>
+                <p>@content.Content</p>
+                <hr />
+            }
+        </div>
+    </div>
+
+    <div class="card my-3">
+        <div class="card-header bg-success text-white">Practical Tasks</div>
+        <div class="card-body">
+            <ul class="list-group">
+                @foreach (var task in Model.PracticalTasks)
+                {
+                    <li class="list-group-item">
+                        @task.TaskToDo  @if (task.isPassed)
+                        {
+                            <span class="text-green-500">Zaliczone</span>
+                        }
+                        @if (!task.isPassed)
+                        {
+                            <span class="font-bold">Nie zaliczono</span>
+                        }
+                    </li>
+                    <a asp-action="GetTaskPage" asp-controller="PracticalTask" asp-route-taskId="@task.Id">Przejdz</a>
+                }
+            </ul>
+        </div>
+    </div>
+
+
+
+    <div class="card my-3">
+        <div class="card-header bg-warning text-white">Quiz</div>
+        <div class="card-body">
+            @foreach (var question in Model.Quiz)
+            {
+                var parts = question.Questions.Split(new[] { "A)", "B)", "C)" }, StringSplitOptions.RemoveEmptyEntries);
+
+                if (parts.Length > 1)
+                {
+                    <div class="mb-3">
+                        <p class="fw-bold">
+                            @parts[0].Trim()
+                            @if (question.isPassed)
+                            {
+                                <span class="text-green-500">Zaliczone</span>
+                            }
+                            @if (!question.isPassed)
+                            {
+                                <span class="font-bold">Nie zaliczono</span>
+                            }
+                        </p>
+                        <div class="btn-group" role="group">
+                            @for (int i = 1; i < parts.Length; i++)
+                            {
+                                var answerText = $"{new string[] { "A)", "B)", "C)" }[i - 1]} {parts[i].Trim()}";
+                                <button type="button" class="btn btn-outline-primary"
+                                        onclick="checkAnswer('@question.Id', '@answerText')">
+                                    @answerText
+                                </button>
+                            }
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+
+}
+else
+{
+    <p class="text-danger">No content available.</p>
+}
+<script>
+       function checkAnswer(questionId, answer) {
+        var tokenElement = document.querySelector('input[name="__RequestVerificationToken"]');
+        var tokenValue = tokenElement ? tokenElement.value : '';
+
+        fetch('/Quiz/CheckQuiz', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'RequestVerificationToken': tokenValue
+            },
+            body: JSON.stringify({ questionId: questionId, answer: answer })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Poprawna odpowiedź!");location.reload();
+            } else {
+                alert("Niepoprawna odpowiedź!");
+            }
+        })
+        .catch(error => console.error('Błąd:', error));
+    }
+
+</script>

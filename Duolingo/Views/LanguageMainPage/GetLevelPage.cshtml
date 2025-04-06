@@ -1,0 +1,42 @@
+﻿@model KeyValuePair<string, string>
+
+
+<h1 class="font-bold text-4xl mb-4"> @TempData["SelectedCourse"]</h1>
+<form asp-action="JoinToCourse" asp-controller="Course" method="get">
+    <input type="hidden" name="level" value="@Model.Value" />
+    <input type="hidden" name="language" value="@Model.Key" />
+    <button class="flex items-center gap-2 bg-amber-500 text-white px-4 py-2 rounded hover:bg-amber-700" type="submit" id="joinButton">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+        Dołączam do kursu!
+    </button>
+</form>
+
+<h2 class="Loader" id="loadingText" style="display: none;">Ładowanie</h2>
+
+<style>
+    h2 {
+        font-size: xx-large;
+        width: 20ch;
+        font-family: monospace;
+        text-wrap: nowrap;
+        overflow: hidden;
+        animation: typing 2s steps(20) infinite alternate-reverse;
+    }
+
+    @@keyframes typing {
+        from
+
+    {
+        width: 0ch;
+    }
+
+    }
+</style>
+
+<script>
+    document.getElementById('joinButton').addEventListener('click', function() {
+        document.getElementById('loadingText').style.display = 'block';  // Pokaż napis "Ładowanie"
+    });
+</script>

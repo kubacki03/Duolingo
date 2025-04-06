@@ -1,0 +1,31 @@
+﻿@model List<SubjectModel>
+
+<div class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg my-12 ">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">@TempData["courseName"] | @TempData["progres"]</h2>
+    <ul class="space-y-4">
+        @foreach (var subject in Model)
+        {
+            <li class="p-4 bg-gray-100 rounded-lg shadow-sm hover:bg-gray-200 transition">
+                <strong class="text-lg">@subject.subject:</strong>
+                <span class="text-gray-700">@subject.description</span>
+                @if(subject.ChallengeToDo==null || subject.ChallengeToDo==0){
+                   <p>Status nie  rozpoczęto</p>
+                }else{
+                    <p>Rozpoczęto @subject.PassedChalenges / @subject.ChallengeToDo</p>
+                }
+                
+                <div class="mt-2">
+                    <a asp-action="GetSubjectContent" asp-controller="Course"
+                       asp-route-subject="@subject.subject"
+                       asp-route-language="@subject.language"
+                       asp-route-id="@subject.CourseId"
+                       class="inline-block mt-2 text-white bg-amber-500 hover:bg-amber-700 px-4 py-2 rounded-lg transition">
+
+                        Zobacz content
+                    </a>
+                </div>
+            </li>
+        }
+    </ul>
+
+

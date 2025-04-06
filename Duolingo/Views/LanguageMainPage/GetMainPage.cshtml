@@ -1,0 +1,28 @@
+﻿@model Duolingo.Models.LanguagesEnum
+
+
+<div class="flex flex-col md:flex-row md:space-x-6">
+    @foreach (var x in Enum.GetValues(typeof(LevelEnum)))
+    {
+
+        <div class="bg-white shadow-md rounded-lg p-4">
+            <a class="relative text-amber-500 transition-all duration-300 hover:text-pink-500 hover:animate-pulse text-xl" asp-action="GetLevelPage" asp-controller="LanguageMainPage" asp-route-level="@x" asp-route-language="@Model">@x</a>
+
+            @if (x.Equals(LevelEnum.Elementary))
+            {
+                <p>Na tym etapie uczysz się podstawowych słów i zwrotów potrzebnych do codziennej komunikacji. Rozumiesz i potrafisz tworzyć proste zdania, przedstawiać się, zadawać podstawowe pytania i odpowiadać na nie. Twoje umiejętności językowe pozwalają na podstawową interakcję, choć często wymagają wsparcia rozmówcy.</p>
+
+            } @if (x.Equals(LevelEnum.Intermediate))
+            {
+                <p>Masz już solidne podstawy języka i potrafisz porozumiewać się w większości codziennych sytuacji. Rozumiesz bardziej złożone teksty i potrafisz wyrażać swoje myśli w sposób bardziej szczegółowy. Jesteś w stanie uczestniczyć w rozmowach, wyrażać opinie, opisywać doświadczenia i plany oraz radzić sobie w pracy czy podróży bez większych trudności.</p>
+            }
+            @if (x.Equals(LevelEnum.Advanced))
+            {
+                <p>Twój poziom językowy pozwala na płynną i swobodną komunikację w różnych sytuacjach. Rozumiesz skomplikowane teksty, subtelności językowe oraz niuanse kulturowe. Potrafisz jasno i precyzyjnie wyrażać swoje myśli, argumentować oraz brać udział w dyskusjach na zaawansowane tematy. Na poziomie C2 posługujesz się językiem niemal jak native speaker.</p>
+            }
+
+
+        </div>
+    }
+</div>
+

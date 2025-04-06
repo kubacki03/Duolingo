@@ -1,0 +1,47 @@
+﻿@model List<Duolingo.Models.Course>
+
+<h1 class="text-4xl font-bold">Language AI</h1>
+<h2 class="text-2xl font-semibold">Nowoczesny sposób na naukę języków</h2>
+
+<div class="my-3">
+    @foreach (var x in Enum.GetValues(typeof(LanguagesEnum)))
+    {
+        <a class="px-4 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-700 transition"
+           asp-action="GetMainPage"
+           asp-controller="LanguageMainPage"
+           asp-route-language="@x">@x</a>
+    }
+</div>
+
+<h2 class="text-4xl font-bold mt-4">Moje kursy</h2>
+
+@if (Model == null || !Model.Any())
+{
+    <p class="text-gray-600">Brak dostępnych kursów.</p>
+}
+else
+{
+    @foreach (var course in Model)
+    {
+        <hr />
+        <h3 class="my-2 font-bold text-2xl">@course.Name</h3>
+        <form asp-action="JoinToCourse" asp-controller="Course" method="get">
+            <input type="hidden" name="level" value="@course.Level" />
+            <input type="hidden" name="language" value="@course.Language" />
+            <button class="flex items-center gap-2 bg-amber-500 text-white px-4 py-2 rounded hover:bg-amber-700" type="submit" id="joinButton">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Wróć do kursu
+            </button>
+        </form>
+    }
+}
+
+<hr class="my-4"/>
+<h3 class="font-bold text-xl">Najaktywniejsi użytkownicy</h3>
+
+@foreach(var user in TempData["BestUsers"] as List<String>){
+    <p class="font-semibold">@user</p>
+}
+
