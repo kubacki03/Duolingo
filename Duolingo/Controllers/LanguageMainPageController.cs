@@ -17,7 +17,7 @@ namespace Duolingo.Controllers
         }
         public IActionResult GetLevelPage(LevelEnum level, LanguagesEnum language)
         {
-            // Convert the enums to strings before passing them to the view
+      
             var model = KeyValuePair.Create(language.ToString(), level.ToString());
             TempData["SelectedCourse"] = "Kurs: " + language + " " + level;
             return View(model);

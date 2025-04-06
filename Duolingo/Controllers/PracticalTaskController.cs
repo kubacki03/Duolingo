@@ -41,7 +41,7 @@ namespace Duolingo.Controllers
             if (taskToDo == null)
             {
                 TempData["response"] = "Nie znaleziono zadania.";
-                return RedirectToAction("GetTaskPage"); // Możesz zmienić, jeśli masz dedykowany widok błędu.
+                return RedirectToAction("GetTaskPage"); 
             }
 
             ResponseModel response = await _aiService.CheckTaskCorrectnessAsync(taskToDo.TaskToDo, answer);
@@ -55,7 +55,7 @@ namespace Duolingo.Controllers
             TempData["response"] = response.Review;
 
             _context.Update(taskToDo);
-            await _context.SaveChangesAsync(); // Zapis zmian w bazie danych
+            await _context.SaveChangesAsync(); 
 
             return View("GetTaskPage", taskToDo);
         }

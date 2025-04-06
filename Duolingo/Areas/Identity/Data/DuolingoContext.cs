@@ -31,7 +31,7 @@ public class DuolingoContext : IdentityDbContext<DuolingoUser>
      .HasMany(u => u.Courses)
      .WithOne(c => c.CourseUsers)
      .HasForeignKey(fk => fk.UserId)
-     ;  // Change to Restrict or NoAction to prevent cascade delete
+     ;  
 
 
         builder.Entity<ContentToLearn>()
@@ -68,8 +68,5 @@ public class DuolingoContext : IdentityDbContext<DuolingoUser>
 
             );
 
-        // Customize the ASP.NET Identity model and override the defaults if needed.
-        // For example, you can rename the ASP.NET Identity table names and more.
-        // Add your customizations after calling base.OnModelCreating(builder);
     }
 }

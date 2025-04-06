@@ -147,7 +147,7 @@ namespace Duolingo.Services
 
 
 
-            // Deserialize JSON response
+           
             ChatCompletion completion = await client.CompleteChatAsync(messages, options);
             string jsonResponse = completion.Content[0].Text;
 
@@ -156,7 +156,7 @@ namespace Duolingo.Services
                 PropertyNameCaseInsensitive = true
             });
 
-            // Example: Access data
+      
             if (contentModel != null)
             {
                 foreach (var item in contentModel.ContentToLearn)
@@ -291,7 +291,7 @@ public class ContentToLearn
     public string Content { get; set; }
 
     public int SubjectId { get; set; }
-    public SubjectToLearn Subject { get; set; } // Nawigacja do encji nadrzędnej
+    public SubjectToLearn Subject { get; set; } 
 }
 
 public class PracticalTask
@@ -300,7 +300,7 @@ public class PracticalTask
     public string TaskToDo { get; set; }
 
     public int SubjectId { get; set; }
-    public SubjectToLearn Subject { get; set; } // Nawigacja do encji nadrzędnej
+    public SubjectToLearn Subject { get; set; } 
 
     public bool isPassed { get; set; } = false;
 }
@@ -311,7 +311,7 @@ public class QuizQuestion
     public string Questions { get; set; }
 
     public int SubjectId { get; set; }
-    public SubjectToLearn Subject { get; set; } // Nawigacja do encji nadrzędnej
+    public SubjectToLearn Subject { get; set; } 
 
     public bool isPassed { get; set; } = false;
 

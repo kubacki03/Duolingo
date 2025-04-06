@@ -37,8 +37,8 @@ namespace Duolingo.Controllers
                    .Include(s => s.CourseUsers)
                    .Include(x => x.subjectToLearns)
                        .ThenInclude(s => s.Question)
-                   .Include(x => x.subjectToLearns)  // ponownie włączamy subjectToLearns
-                       .ThenInclude(s => s.PracticalTask)  // dodajemy PracticalTask
+                   .Include(x => x.subjectToLearns)  
+                       .ThenInclude(s => s.PracticalTask)  
                    .FirstOrDefault(o => o.Language == language && o.Level == level && o.UserId == user.Id);
 
 
